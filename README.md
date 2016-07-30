@@ -4,18 +4,22 @@ A Leiningen plugin to do many wonderful things.
 
 ## Usage
 
-FIXME: Use this for user-level plugins:
-
-Put `[cloudformation-deploy "0.1.0-SNAPSHOT"]` into the `:plugins` vector of your `:user`
-profile.
-
-FIXME: Use this for project-level plugins:
-
 Put `[cloudformation-deploy "0.1.0-SNAPSHOT"]` into the `:plugins` vector of your project.clj.
 
-FIXME: and add an example usage that actually makes sense:
+Sample plugin configuration
+```
+(defproject foo/bar "0.1.0-SNAPSHOT"
+  :dependencies [[org.clojure/clojure "1.7.0"]]
+  :plugins [[tterry/cloudformation-deploy "0.1.0-SNAPSHOT"]]
+  :cloudformation-deploy {:foo {:parameters {:ecs-cluster-id "ABC"}
+                                :stack-name "ABC-ABC"
+                                :stack-template-path "cloudformation-test.json"
+                                :region "eu-west-1"}})
+```
 
-    $ lein cloudformation-deploy
+Example usage
+
+    $ lein cloudformation-deploy :env foo
 
 ## License
 
