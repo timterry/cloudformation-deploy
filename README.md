@@ -1,4 +1,4 @@
-# docker-deploy
+# cloudformation-deploy
 
 A Leiningen plugin to do many wonderful things.
 
@@ -6,16 +6,16 @@ A Leiningen plugin to do many wonderful things.
 
 FIXME: Use this for user-level plugins:
 
-Put `[docker-deploy "0.1.0-SNAPSHOT"]` into the `:plugins` vector of your `:user`
+Put `[cloudformation-deploy "0.1.0-SNAPSHOT"]` into the `:plugins` vector of your `:user`
 profile.
 
 FIXME: Use this for project-level plugins:
 
-Put `[docker-deploy "0.1.0-SNAPSHOT"]` into the `:plugins` vector of your project.clj.
+Put `[cloudformation-deploy "0.1.0-SNAPSHOT"]` into the `:plugins` vector of your project.clj.
 
 FIXME: and add an example usage that actually makes sense:
 
-    $ lein docker-deploy
+    $ lein cloudformation-deploy
 
 ## License
 
