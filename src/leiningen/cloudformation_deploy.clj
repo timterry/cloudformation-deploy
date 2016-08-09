@@ -9,6 +9,16 @@
     (keyword (.substring ^String str 1))
     str))
 
+(defn eval-settings [project settings]
+  (->> (map (fn[e]
+              {(key e)
+               (let [v (val e)]
+                 (if (fn? v)
+                   (v project)
+                   v))})
+            settings)
+       (apply merge)))
+
 (defn cloudformation-deploy
   "I don't do a lot."
   [project & args]
@@ -20,7 +30,7 @@
                          (apply merge))
         env (get deploy-args :env)
         settings (get-in project [:cloudformation-deploy env])]
-    (deploy/deploy (:parameters settings)
+    (deploy/deploy (eval-settings project (:parameters settings))
                    (:stack-name settings)
                    (or (:stack-template-path settings) "cloudformation.json")
                    (:region settings))))

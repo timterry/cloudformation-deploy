@@ -6,7 +6,7 @@
   (:import (com.amazonaws AmazonServiceException)
            (java.io File)))
 
-(def create-completed-statuses #{"CREATE_COMPLETE" "CREATE_FAILED" "ROLLBACK_FAILED"})
+(def create-completed-statuses #{"CREATE_COMPLETE" "CREATE_FAILED" "ROLLBACK_FAILED" "ROLLBACK_COMPLETE"})
 (def update-completed-statuses #{"UPDATE_COMPLETE" "UPDATE_ROLLBACK_COMPLETE" "UPDATE_ROLLBACK_FAILED"})
 
 (def update-allowed-statuses (set/union create-completed-statuses update-completed-statuses))

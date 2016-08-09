@@ -11,7 +11,8 @@ Sample plugin configuration
 (defproject foo/bar "0.1.0-SNAPSHOT"
   :dependencies [[org.clojure/clojure "1.7.0"]]
   :plugins [[tterry/cloudformation-deploy "0.1.0-SNAPSHOT"]]
-  :cloudformation-deploy {:foo {:parameters {:ecs-cluster-id "ABC"}
+  :cloudformation-deploy {:foo {:parameters {:ecs-cluster-id "ABC"
+                                             :app-version ~#(str (:version %))}
                                 :stack-name "ABC-ABC"
                                 :stack-template-path "cloudformation-test.json"
                                 :region "eu-west-1"}})
@@ -20,7 +21,7 @@ stack-template-path can be either a string to reference a classpath resource or 
 
 Example usage
 
-    $ lein cloudformation-deploy :env foo
+    $ lein cloudformation-deploy :env :foo
 
 ## License
 
