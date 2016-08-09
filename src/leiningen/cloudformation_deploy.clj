@@ -1,4 +1,4 @@
-(ns leiningen.docker-deploy
+(ns leiningen.cloudformation-deploy
   (:require [tterry.cloudformation-deploy.deploy-stack :as deploy]
             [leiningen.core.main :as lein]
             [clojure.pprint]))

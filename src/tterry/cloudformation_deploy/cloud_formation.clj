@@ -3,7 +3,8 @@
             [clojure.java.io :as io]
             [leiningen.core.main :as lein]
             [clojure.set :as set])
-  (:import (com.amazonaws AmazonServiceException)))
+  (:import (com.amazonaws AmazonServiceException)
+           (java.io File)))
 
 (def create-completed-statuses #{"CREATE_COMPLETE" "CREATE_FAILED" "ROLLBACK_FAILED"})
 (def update-completed-statuses #{"UPDATE_COMPLETE" "UPDATE_ROLLBACK_COMPLETE" "UPDATE_ROLLBACK_FAILED"})
@@ -60,9 +61,15 @@
     (keys params)))
 
 (defn load-template [path]
-  (if-let [template-resource (io/resource path)]
-    (slurp (io/file template-resource))
-    (lein/abort "Unable to read cloudformation template" path "from classpath")))
+  (let [template-contents (cond
+                            (= String (type path))
+                            (when-let [template-resource (io/resource path)]
+                              (slurp (io/file template-resource)))
+                            (= File (type path))
+                            (slurp path))]
+    (if template-contents
+      template-contents
+      (lein/abort "Unable to read cloudformation template" path "from classpath or file"))))
 
 (defn start-update [region name template-path parameters]
   (lein/info "Updating stack" name "from template" template-path)

@@ -16,6 +16,7 @@ Sample plugin configuration
                                 :stack-template-path "cloudformation-test.json"
                                 :region "eu-west-1"}})
 ```
+stack-template-path can be either a string to reference a classpath resource or File instance.
 
 Example usage
 
