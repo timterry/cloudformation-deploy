@@ -91,7 +91,7 @@
        false)
      (when-let [s (stack region stack-name)]
        (let [status (:stack-status s)]
-         (lein/info "Checking status of stack " attempt " (inc count) " status " status")
+         (lein/info "Checking status of stack, attempt " (inc count) " status " status)
          (if-not (or (contains? statuses status))
            (do
              (Thread/sleep STATUS_CHECK_INTERVAL)
