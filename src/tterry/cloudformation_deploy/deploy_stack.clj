@@ -23,9 +23,12 @@
         (cf/start-create region stack-name stack-template-path params)))
     (if (cf/wait-for-statuses region stack-name expected-statuses)
       (let [stack (cf/stack region stack-name)]
-        (lein/info "Stack outputs" (cf/stack-outputs stack)))
-      (lein/abort "Stack creation/update failed")))
+        (if (cf/unsuccessful-status? stack)
+          (lein/abort "Stack creation/update failed")
+          (lein/info "Stack outputs" (cf/stack-outputs stack))))
+      (lein/abort "Stack creation/update failed, timeout waiting for stack to be in correct status")))
   (lein/info "Finished deploy."))
+
 
 (comment
   (deploy {:applicationVersion "0.0.1"

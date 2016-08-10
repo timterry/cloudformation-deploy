@@ -8,6 +8,7 @@
 
 (def create-completed-statuses #{"CREATE_COMPLETE" "CREATE_FAILED" "ROLLBACK_FAILED" "ROLLBACK_COMPLETE"})
 (def update-completed-statuses #{"UPDATE_COMPLETE" "UPDATE_ROLLBACK_COMPLETE" "UPDATE_ROLLBACK_FAILED"})
+(def unsuccessful-statuses #{"CREATE_FAILED" "ROLLBACK_FAILED" "ROLLBACK_COMPLETE" "UPDATE_ROLLBACK_COMPLETE" "UPDATE_ROLLBACK_FAILED"})
 
 (def update-allowed-statuses (set/union create-completed-statuses update-completed-statuses))
 
@@ -29,6 +30,10 @@
                            "UPDATE_ROLLBACK_FAILED"
                            "UPDATE_ROLLBACK_COMPLETE_CLEANUP_IN_PROGRESS"
                            "UPDATE_ROLLBACK_COMPLETE"])
+
+(defn unsuccessful-status? [stack]
+  (contains? unsuccessful-statuses (:stack-status stack)))
+
 (defn endpoint-for-region [region]
   {:endpoint (str "cloudformation." region ".amazonaws.com")})
 
